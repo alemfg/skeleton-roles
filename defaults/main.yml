@@ -1,2 +1,9 @@
 ---
-  
+docker_compose_webstack_template_file: /etc/ansible/roles/teng.ansible-docker_webstack/templates/webstack.yml.j2
+docker_compose_webstack_docker_compose_file_path: /etc/ansible/roles/teng.ansible-docker_webstack/files/webstack/docker-compose.yml
+docker_compose_webstack_directory_path: /etc/ansible/roles/teng.ansible-docker_webstack/files/webstack
+
+docker_webstack_haproxy_install_version: 1.5
+docker_webstack_haproxy_dns_list:
+  - 8.8.8.8
+  - 4.4.4.4

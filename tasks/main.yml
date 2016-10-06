@@ -1,2 +1,5 @@
 ---
-- include: create_image.yml
+- include: docker_webstack_start.yml
+  when: docker_webstack_start
+- include: docker_webstack_stop.yml
+  when: docker_webstack_stop

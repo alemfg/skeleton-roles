@@ -1,0 +1,20 @@
+version: '2'
+services:
+  haproxy:
+    image: dockercloud/haproxy:{{ docker_webstack_haproxy_install_version }}
+    container_name: haproxy
+    hostname: haproxy
+    restart: always
+    ports:
+      - 9080:80
+    # links:
+    #   - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    dns:
+{% for item in docker_webstack_haproxy_dns_list %}
+      - {{ item }}
+{% endfor %}
+
+  # web:
+  #   image:
