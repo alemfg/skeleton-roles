@@ -1,7 +1,17 @@
 ---
+
+- block:
+  - name: Check required variables
+    fail:
+      msg: "Variable 'automated_docker_name' is not defined"
+    when: item is not defined
+    with_items:
+      - "{{ webstack_container_name }}"
+
+
 - block: # Prepare container variables
   - name: Include docker container variables
-    include_vars: "haproxy_var.yml"
+    include_vars: "{{ webstack_container_name }}_var.yml"
 
 
 - block: # Loop to run containers
