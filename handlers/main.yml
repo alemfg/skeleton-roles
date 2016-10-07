@@ -1,0 +1,7 @@
+---
+
+- name: Restart container
+  docker_container:
+    name: "{{ webstack_container_run.name }}"
+    state: started
+    restart: true

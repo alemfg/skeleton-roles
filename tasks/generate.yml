@@ -1,0 +1,18 @@
+---
+
+- block: # Prepare container variables
+  - name: Combine docker container variable
+    set_fact:
+      webstack_container_run: "{{ docker_webstack_container_default[docker_webstack_container.key] | default({}) | combine(docker_webstack_container.value) }}"
+
+
+- block: # Pre-generate configurations
+  - name: Create HAProxy docker-compose file
+    template:
+      src: "{{ docker_compose_webstack_template_file }}"
+      dest: "{{ docker_compose_webstack_docker_compose_file_path }}"
+    register: docker_compose_file_generated_check
+    when: docker_webstack_generate
+  tags:
+    - docker-webstack-generate
+  - debug: var=docker_compose_file_generated_check

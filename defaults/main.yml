@@ -7,3 +7,6 @@ docker_webstack_haproxy_install_version: 1.5
 docker_webstack_haproxy_dns_list:
   - 8.8.8.8
   - 4.4.4.4
+
+
+docker_webstack_container_default_pull: no

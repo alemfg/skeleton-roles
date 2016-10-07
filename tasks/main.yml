@@ -1,5 +1,12 @@
 ---
-- include: docker_webstack_start.yml
-  when: docker_webstack_start
-- include: docker_webstack_stop.yml
-  when: docker_webstack_stop
+- block: # Prepare container variables
+  - name: Include docker container variables
+    include_vars: "haproxy_var.yml"
+
+
+- block: # Loop to run containers
+  - name: Test loop control from main.yml
+    include: test.yml
+    with_dict: "{{ docker_webstack_container_default }}"
+    loop_control:
+      loop_var: docker_webstack_container

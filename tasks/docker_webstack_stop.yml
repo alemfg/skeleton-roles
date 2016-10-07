@@ -1,5 +1,5 @@
 ---
-- block: # Stop all container
+- block: # Stop and remove all container
   - name: Stop all container
     docker_service:
       project_src: "{{ docker_compose_webstack_directory_path }}"
