@@ -1,9 +1,0 @@
----
-
-- block: # Pre-generate configurations
-  - name: Create HAProxy docker-compose file
-    template:
-      src: "{{ docker_compose_webstack_template_file }}"
-      dest: "{{ docker_compose_webstack_docker_compose_file_path }}"
-    register: docker_compose_file_generated_check
-  - debug: var=docker_compose_file_generated_check

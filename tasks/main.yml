@@ -1,22 +1,26 @@
 ---
 
-- block:
-  - name: Check required variables
-    fail:
-      msg: "Variable 'automated_docker_name' is not defined"
-    when: item is not defined
-    with_items:
-      - "{{ webstack_container_name }}"
+- block: # Doing pre-check
+  - name: Pre-check state
+    include: pre_check.yml
 
 
-- block: # Prepare container variables
-  - name: Include docker container variables
-    include_vars: "{{ webstack_container_name }}_var.yml"
+- block: # Loop to generate Docker-compose files
+  - name: Generate Docker-compose file
+    include: generate.yml
+    # with_dict: "{{ hostvars[inventory_hostname]['docker_webstack_container_' + webstack_container_name[0]] | default(docker_webstack_container_default) }}"
+    # loop_control:
+    #   loop_var: docker_webstack_container
 
 
-- block: # Loop to run containers
-  - name: Test loop control from main.yml
-    include: test.yml
-    with_dict: "{{ docker_webstack_container_default }}"
+- block: # Loop to prepare container environment before run containers
+  - name: Prepare container environment before run containers
+    include: pre_run.yml
+    with_dict: "{{ hostvars[inventory_hostname]['docker_webstack_container_' + webstack_container_name[0]] | default(docker_webstack_container_default) }}"
     loop_control:
       loop_var: docker_webstack_container
+
+
+- block: # Run all containers (docker-compose up)
+  - name: Run container
+    include: run.yml

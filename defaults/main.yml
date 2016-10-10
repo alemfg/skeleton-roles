@@ -1,12 +1,14 @@
 ---
-docker_compose_webstack_template_file: /etc/ansible/roles/teng.ansible-docker_webstack/templates/webstack.yml.j2
-docker_compose_webstack_docker_compose_file_path: /etc/ansible/roles/teng.ansible-docker_webstack/files/webstack/docker-compose.yml
-docker_compose_webstack_directory_path: /etc/ansible/roles/teng.ansible-docker_webstack/files/webstack
+webstack_container_name:
+  - lb
+  - web
 
-docker_webstack_haproxy_install_version: 1.5
-docker_webstack_haproxy_dns_list:
-  - 8.8.8.8
-  - 4.4.4.4
+docker_webstack_docker_compose_generate: false
 
-webstack_container_name: haproxy
+docker_compose_webstack_template_file: "{{ role_path }}/templates/webstack.yml.j2"
+docker_compose_webstack_docker_compose_file: "{{ role_path }}/files/webstack/docker-compose.yml"
+docker_compose_webstack_directory_path: "{{ role_path }}/files/webstack/"
+
+docker_webstack_container_destroy: false
 docker_webstack_container_default_pull: no
+docker_webstack_container_web_scale: 1

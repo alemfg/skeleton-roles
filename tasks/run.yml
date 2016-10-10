@@ -1,25 +1,25 @@
 ---
-- block: # Prepare container variables
-  - name: Combine docker container variable
-    set_fact:
-      webstack_container_run: "{{ docker_webstack_container_default[docker_webstack_container.key] | default({}) | combine(docker_webstack_container.value) }}"
 
-
-- block: # Pull image
-
-  - name: Pull "{{ webstack_container_run.image }}"
-    docker_image:
-      name: "{{ webstack_container_run.image }}"
-      force: "{{ webstack_container_run.pull | default(docker_webstack_container_default_pull) }}"
-
-
-- block: # Create and Run application services
-  - name: Run webstack
+- block: # Run Docker containers
+  - name: Run stack containers
     docker_service:
       project_src: "{{ docker_compose_webstack_directory_path }}"
       state: present
-    register: output
-    when: docker_compose_file_generated_check
+      scale:
+        web: "{{ docker_webstack_container_web_scale }}"
+    register: webstack_container_create_result
+  - debug: msg=webstack_container_create_result
+
+- block: # Stop and Destroy Docker containers
+  - name: Destroy stack containers
+    docker_service:
+      project_src: "{{ docker_compose_webstack_directory_path }}"
+      state: absent
+      scale:
+        web: "{{ docker_webstack_container_web_scale }}"
+    register: webstack_container_destroy_result
+    when: webstack_container_create_result and docker_webstack_container_destroy
+
+
   tags:
-    - docker-webstack-start
-  - debug: var=output
+    - docker-webstack-run

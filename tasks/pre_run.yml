@@ -1,0 +1,17 @@
+---
+- block: # Prepare container variables
+  - name: Combine "{{ docker_webstack_container.key }}" docker container variable
+    set_fact:
+      webstack_container_run: "{{ docker_webstack_container_default[docker_webstack_container.key] | default({}) | combine(docker_webstack_container.value) }}"
+  # - debug: msg={{docker_webstack_container_default}}
+
+- block: # Pull image
+
+  - name: Pull "{{ webstack_container_run.image }}"
+    docker_image:
+      name: "{{ webstack_container_run.image }}"
+      force: "{{ webstack_container_run.pull | default(docker_webstack_container_default_pull) }}"
+
+
+  tags:
+    - docker-webstack-pre-run

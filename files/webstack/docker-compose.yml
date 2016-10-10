@@ -1,19 +1,18 @@
 version: '2'
 services:
-  haproxy:
+  web:
+    image: dockercloud/hello-world
+    restart: always
+
+  lb:
     image: dockercloud/haproxy:1.5
-    container_name: haproxy
-    hostname: haproxy
+    container_name: lb
+    hostname: lb
     restart: always
     ports:
       - 9080:80
-    # links:
-    #   - web
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    dns:
-      - 8.8.8.8
-      - 4.4.4.4
+    links:
+      - web
 
-  # web:
-  #   image:

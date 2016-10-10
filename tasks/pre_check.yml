@@ -1,0 +1,26 @@
+---
+
+- block:
+  - name: Check required variables
+    fail:
+      msg: "Variable 'webstack_container_name' is not defined"
+    when: item is not defined
+    with_items:
+      - "{{ webstack_container_name }}"
+
+
+- block: # Prepare container variables
+  - name: Include docker container variables
+    include_vars: "{{ item }}_var.yml"
+    with_items:
+      - "{{ webstack_container_name }}"
+  # - debug: msg="{{ docker_webstack_container_default }}"
+
+
+- block:
+  - name: Check if x container has post configuration tasks file
+    stat:
+      path: "{{ role_path }}/tasks/{{ webstack_container_name }}/{{ webstack_container_name }}_config.yml"
+      get_md5: no
+    register: docker_webstack_has_post_config
+  # - debug: msg={{docker_webstack_has_post_config}}

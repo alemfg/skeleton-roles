@@ -1,17 +1,14 @@
 ---
 
 docker_webstack_container_default:
-  haproxy:
+  lb:
     image: dockercloud/haproxy:1.5
-    name: haproxy
-    hostname: haproxy
+    name: lb
+    hostname: lb
     restart_policy: always
     published_ports:
       - 9080:80
-    # links:
-    #   - web
+    links:
+      - web
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4

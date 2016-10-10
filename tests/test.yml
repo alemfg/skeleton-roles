@@ -3,5 +3,4 @@
   remote_user: root
   roles:
     - role: teng.ansible-docker_webstack
-      docker_webstack_start: true
-      docker_webstack_stop: false
+      docker_webstack_docker_compose_generate: true

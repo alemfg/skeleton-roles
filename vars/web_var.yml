@@ -1,0 +1,6 @@
+---
+
+docker_webstack_container_default:
+  web:
+    image: dockercloud/hello-world
+    restart_policy: always
