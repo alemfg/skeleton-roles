@@ -5,5 +5,4 @@ Components
 -----------
 - Load Balance
 - Web application
-- Add Database container link to Web application
-
+- Database
