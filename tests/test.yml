@@ -2,5 +2,5 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - role: teng.ansible-docker_webstack
+    - role: teng.docker_webstack
       docker_webstack_docker_compose_generate: true
