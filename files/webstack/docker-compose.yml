@@ -1,16 +1,28 @@
 version: '2'
 services:
   web:
-    image: dockercloud/hello-world
+    image: nttcth/docker-webpy
     restart: always
+    links:
+      - db
+
+  db:
+    image: mariadb:5.5
+    container_name: db
+    restart: always
+    environment:
+      - MYSQL_DATABASE='webpy'
+      - MYSQL_USER='webpy'
+      - MYSQL_ROOT_PASSWORD='123123'
+    volumes:
+      - /docker/spam/data:/var/lib/mysql
 
   lb:
     image: dockercloud/haproxy:1.5
     container_name: lb
-    hostname: lb
     restart: always
     ports:
-      - 9080:80
+      - 10080:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     links:

@@ -12,7 +12,6 @@
       src: "{{ docker_compose_webstack_template_file }}"
       dest: "{{ docker_compose_webstack_docker_compose_file }}"
     register: docker_compose_file_generated_check
-    when: docker_webstack_docker_compose_generate
   # - debug: msg=docker_compose_file_generated_check
   tags:
     - docker-webstack-docker-compose-generate

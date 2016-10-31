@@ -1,8 +1,6 @@
 ---
 
 docker_webstack_container_default:
-  web:
-    image: nttcth/docker-webpy
+  webtest:
+    image: dockercloud/hello-world
     restart_policy: always
-    links:
-      - db

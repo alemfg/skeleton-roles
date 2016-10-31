@@ -1,0 +1,13 @@
+---
+
+docker_webstack_container_default:
+  db:
+    image: mariadb:5.5
+    name: db
+    restart_policy: always
+    environment:
+      - MYSQL_DATABASE='webpy'
+      - MYSQL_USER='webpy'
+      - MYSQL_ROOT_PASSWORD='123123'
+    volumes:
+      - /docker/spam/data:/var/lib/mysql
