@@ -1,14 +1,3 @@
 ---
-webstack_container_name:
-  - lb
-  - web
-  - db
-
-docker_webstack_container_run: false
-docker_webstack_container_destroy: false
-docker_webstack_container_default_pull: no
-docker_webstack_container_web_scale: 1
-
-docker_compose_webstack_template_file: "{{ role_path }}/templates/webstack.yml.j2"
-docker_compose_webstack_docker_compose_file: "{{ role_path }}/files/webstack/docker-compose.yml"
-docker_compose_webstack_directory_path: "{{ role_path }}/files/webstack/"
+# THIS FILE INTENTS TO BE SKELETON FOR DIRECTORY
+# Global variables
